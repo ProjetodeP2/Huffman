@@ -1,0 +1,39 @@
+#include "lib/encode.h"
+
+void encoding(FILE *file)
+{
+    //we need to find the size of the file
+    int file_size, amount_of_bytes, i;
+    fseek(file,0, SEEK_END);
+    file_size = ftell(file);
+    //this string will receive the file data
+    unsigned char file_data[file_size];
+    rewind(file);
+    //transfer the file data to the string
+    amount_of_bytes = (int) fread(file_data, 1, (size_t)file_size, file);
+    if(amount_of_bytes != file_size)
+    {
+        printf("Failed to transfer the file data to the string");
+        return;
+    }
+    else
+    {
+        //we need to count the frequency of which byte of the string
+        int *frequency = count_frequency(file_data, file_size);
+        //now we neesd to build our huffman tree
+        huffman_tree *root = build_huffman_tree(frequency);
+    }
+
+}
+
+int main() {
+    char url[] = "test.txt";
+    FILE *file;
+    file =  fopen(url, "rb");
+    if (file == NULL) {
+        printf("Failed to load the file\n\n");
+    } else {
+        encoding(file);
+    }
+    return 0;
+}
