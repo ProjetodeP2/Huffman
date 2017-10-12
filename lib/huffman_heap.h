@@ -13,8 +13,6 @@ typedef struct heap
     void* data[MAX_HEAP_SIZE+1];
 }heap;
 
-// Retorna um nó para uma árvore de Huffman, a partir, de seu item, frequenia e filhos à esquerda e direita.
-huffman_tree* create_huffman_tree_node(void *item, int frequency, huffman_tree *left, huffman_tree *right);
 
 //Retorna uma heap com o tamanho atual zero e cada elemento do array de ponteiros, data, apontando para NULL.
 heap* create_heap();
