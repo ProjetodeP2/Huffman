@@ -1,15 +1,5 @@
 #include "../lib/huffman_heap.h"
 
-huffman_tree* create_huffman_tree_node(void *item, int frequency, huffman_tree *left, huffman_tree *right)
-{
-    huffman_tree *node = (huffman_tree*)malloc(sizeof(huffman_tree));
-    node->item = item;
-    node->frequency = frequency;
-    node->left = left;
-    node->right = right;
-    return node;
-}
-
 heap* create_heap()
 {
     int i;

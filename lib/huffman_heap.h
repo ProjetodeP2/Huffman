@@ -4,15 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #define MAX_HEAP_SIZE 256
 
-typedef struct huffman_tree
-{
-    void *item;
-    int frequency;
-    struct huffman_tree *left;
-    struct huffman_tree *right;
-}huffman_tree;
 typedef struct heap
 {
     int size;
