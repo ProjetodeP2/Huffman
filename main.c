@@ -1,4 +1,6 @@
 #include "lib/encode.h"
+#include "lib/huffman_tree.h"
+#include "lib/huffman_heap.h"
 
 void encoding(FILE *file)
 {

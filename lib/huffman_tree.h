@@ -8,11 +8,10 @@
 typedef struct huffman_tree
 {
 	int frequency;
-	unsigned char item;
+	void* item;
 	struct huffman_tree* left;
 	struct huffman_tree* right;
 } huffman_tree;
-
 
 /*
     Recebe o item e sua frequência no arquivo e cria um nó filho.
@@ -34,6 +33,8 @@ int height (huffman_tree* huffman_tree);
 
 */
 huffman_tree* build_huffman_tree(int* frequency);
+
+void print_unsigned_char_in_order(huffman_tree *ht);
 
 
 #endif //HUFFMAN_HUFFMAN_TREE_H

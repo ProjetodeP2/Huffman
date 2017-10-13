@@ -13,7 +13,6 @@ typedef struct heap
     void* data[MAX_HEAP_SIZE+1];
 }heap;
 
-
 //Retorna uma heap com o tamanho atual zero e cada elemento do array de ponteiros, data, apontando para NULL.
 heap* create_heap();
 

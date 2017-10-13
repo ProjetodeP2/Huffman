@@ -2,6 +2,8 @@
 #define HUFFMAN_ENCODE_H
 
 #include "huffman_heap.h"
+#include "huffman_tree.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -14,5 +16,7 @@ int* count_frequency(unsigned char *file_data, int size);
   Utilizamos uma min_heap como uma fila de prioridade para a menor frequência.
  */
 huffman_tree* build_huffman_tree(int *frequency);
+
+void maping_leaves(huffman_tree *root, node **map, node* path);
 
 #endif //HUFFMAN_ENCODE_H
