@@ -48,14 +48,14 @@ void maping_leaves(huffman_tree *root, node **map, node* path)
     if(root->left == NULL && root->right == NULL)
     {
         unsigned char index = *((unsigned char*)root->item);//por causo do ponteiro para void
-        map[index] = copy_list(path);
+        map[index] = copy_int_list(path);
         return;
     }
 
-    path = add_end(path, 0);
+    path = add_int_end(path, 0);
     maping_leaves(root->left, map, path);
     path = remove_last_node(path);
-    path = add_end(path, 1);
+    path = add_int_end(path, 1);
     maping_leaves(root->right, map, path);
     path = remove_last_node(path);
 }

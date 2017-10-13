@@ -10,12 +10,14 @@ int is_list_empty(node* head)
     return(head == NULL);
 }
 
-node* add_end(node* head, int item)
+node* add_int_end(node* head, int item)
 {
+    int *item_of_node = (int*)malloc(sizeof(int));
+    *item_of_node = item;
     if(head == NULL)
     {
         node* new_node = (node*) malloc(sizeof(node));
-        new_node->item = item;
+        new_node->item = item_of_node;
         new_node->next = head;
         return new_node;
     }
@@ -25,7 +27,7 @@ node* add_end(node* head, int item)
         head = head->next;
     }
     node* new_node = (node*) malloc(sizeof(node));
-    new_node->item = item;
+    new_node->item = item_of_node;
     new_node->next = head->next;
     head->next = new_node;
     return aux;
@@ -54,24 +56,28 @@ node* remove_last_node(node* head)
     free(current);
     return head;
 }
-node* copy_list(node *head)
+node* copy_int_list(node *head)
 {
     node *aux = head;
     node *copy = create_list();
+    int *item = NULL;
     while (aux != NULL)
     {
-        copy = add_end(copy, aux->item);
+        item = (int *)aux->item;
+        copy = add_int_end(copy, *item);
         aux = aux->next;
     }
     return copy;
 }
-void print_list(node* head)
+void print_int_list(node* head)
 {
     node* aux = head;
+    int *item = NULL;
     if (aux == NULL)printf("Lista vazia\n");
     while(aux != NULL)
     {
-        printf("%d ", aux->item);
+        item = (int *)aux->item;
+        printf("%d ", *item);
         aux=aux->next;
     }
     printf("\n");

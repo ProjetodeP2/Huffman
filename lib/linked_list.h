@@ -7,7 +7,7 @@
 
 typedef struct node
 {
-    int item;
+    void *item;
     struct node *next;
 }node;
 
@@ -17,13 +17,13 @@ node* create_list();
 int is_list_empty(node* head);
 
 //adciona um node no final da lista
-node* add_end(node* head, int item);
+node* add_int_end(node* head, int item);
 //remove o último node
 node* remove_last_node(node* head);
 
-node* copy_list(node *head);
+node* copy_int_list(node *head);
 
-void print_list(node* head);
+void print_int_list(node* head);
 
 
 

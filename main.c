@@ -25,6 +25,7 @@ void encoding(FILE *file)
         //apartir daqui é tudo temporario
         //precisamos agora mapear a arvore
         print_unsigned_char_in_order(root);
+        printf("\n");
         node *map[256];
         int i;
         for (i = 0; i < 256; ++i)
@@ -32,7 +33,12 @@ void encoding(FILE *file)
             map[i] = NULL;
         }
         maping_leaves(root, map, NULL);
-        //print_list(map['F']);
+        print_int_list(map['A']);
+        print_int_list(map['B']);
+        print_int_list(map['C']);
+        print_int_list(map['D']);
+        print_int_list(map['E']);
+        print_int_list(map['F']);
     }
 
 }
