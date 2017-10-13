@@ -6,7 +6,10 @@
 #include <string.h>
 #include "huffman_tree.h"
 #define MAX_HEAP_SIZE 256
-
+/*
+	Define o tipo abstrato 'heap', cujo a struct contém
+	o tamanho atual da heap, e um array de poteiros para void com seu tamanho máximo.
+*/
  typedef struct heap
 {
     int size;

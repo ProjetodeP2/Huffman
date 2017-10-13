@@ -42,7 +42,6 @@ huffman_tree* build_huffman_tree(int *frequency)
     return root;
 
 }
-//temporario
 void maping_leaves(huffman_tree *root, node **map, node* path)
 {
     if(root->left == NULL && root->right == NULL)

@@ -18,7 +18,9 @@ int* count_frequency(unsigned char *file_data, int size);
  */
 huffman_tree* build_huffman_tree(int *frequency);
 
-
+/*
+Dado uma árvore huffman, um array de ponteiros para node e uma lista, mapeamos o caminho de cada folha da árvore e armazena no array.
+*/
 void maping_leaves(huffman_tree *root, node **map, node* path);
 
 
