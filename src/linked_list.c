@@ -120,3 +120,9 @@ void print_unsigned_char_list(node *head)
     }
     printf("\n");
 }
+
+int list_count(node* head, int size)
+{
+    if ( head == NULL) return size;
+    list_count( head->next, ++size);
+}

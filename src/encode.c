@@ -1,4 +1,5 @@
 #include "../lib/encode.h"
+#include "../lib/bitmask.h"
 
 int* count_frequency(unsigned char *file_data, int size)
 {
@@ -86,3 +87,39 @@ node* save_pre_order(huffman_tree *root, node *list_pre_order, int* size_of_tree
     return list_pre_order;
 }
 
+int get_bits_size(node **map, int *frequency)
+{
+    int i;
+    int bits_size = 0;
+    int list_size;
+
+    for(i = 0; i<256; i++)
+    {
+        list_size = 0; 
+        
+        if(frequency[i] != 0) 
+        {
+            list_size = list_count(map[i], 0);
+            bits_size += list_size * frequency[i];
+        } 
+
+    }
+    return bits_size;
+}
+
+int get_trash_size(int total_bits)
+{
+    return (8 - (total_bits % 8) ) % 8; 
+}
+/*
+unsigned char* make_header(node* list_pre_order, int trash_size, int size_of_tree)
+{
+    unsigned char* header = (unsigned char*) malloc((2 + size_of_tree) * sizeof(unsigned char));
+    memset(header, 0, (2 + size_of_tree) * sizeof(unsigned char));
+    int i;
+    for(i = 0; i<)
+    {
+
+    }
+}
+*/

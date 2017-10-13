@@ -29,8 +29,7 @@ node* copy_int_list(node *head);
 void print_int_list(node* head);
 //imprime uma lista que possue unsigned char como item.
 void print_unsigned_char_list(node* head);
-
-
-
+// Conta os elementos da lista e retorna seu tamanho
+int list_count(node* head, int size);
 
 #endif //HUFFMAN_LINKED_LIST_H

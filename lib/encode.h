@@ -28,4 +28,19 @@ Dado uma árvore de huffman, salva a sua pre-order em um lista encadeada e guard
 */
 node* save_pre_order(huffman_tree *root, node *list_pre_order, int* size_of_tree);
 
+/*
+
+*/
+int get_bits_size(node **map, int *frequency);
+
+/*
+
+*/
+int get_trash_size(int total_bits);
+
+/*
+
+*/
+unsigned char* make_header(node* list_pre_order, int trash_size, int size_of_tree);
+
 #endif //HUFFMAN_ENCODE_H
