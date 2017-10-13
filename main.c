@@ -3,7 +3,7 @@
 void encoding(FILE *file)
 {
     //we need to find the size of the file
-    int file_size, amount_of_bytes, i;
+    int file_size, amount_of_bytes;
     fseek(file,0, SEEK_END);
     file_size = ftell(file);
     //this string will receive the file data
@@ -22,6 +22,17 @@ void encoding(FILE *file)
         int *frequency = count_frequency(file_data, file_size);
         //now we neesd to build our huffman tree
         huffman_tree *root = build_huffman_tree(frequency);
+        //apartir daqui é tudo temporario
+        //precisamos agora mapear a arvore
+        print_unsigned_char_in_order(root);
+        node *map[256];
+        int i;
+        for (i = 0; i < 256; ++i)
+        {
+            map[i] = NULL;
+        }
+        maping_leaves(root, map, NULL);
+        //print_list(map['F']);
     }
 
 }

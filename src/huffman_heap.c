@@ -1,5 +1,5 @@
 #include "../lib/huffman_heap.h"
-
+/*
 huffman_tree* create_huffman_tree_node(void *item, int frequency, huffman_tree *left, huffman_tree *right)
 {
     huffman_tree *node = (huffman_tree*)malloc(sizeof(huffman_tree));
@@ -9,7 +9,7 @@ huffman_tree* create_huffman_tree_node(void *item, int frequency, huffman_tree *
     node->right = right;
     return node;
 }
-
+*/
 heap* create_heap()
 {
     int i;
@@ -39,6 +39,7 @@ unsigned char unsigned_char_item_of_huffman_heap(heap *heap, int index)
     huffman_tree *aux = (huffman_tree*)heap->data[index];
     return *((unsigned char*)((aux->item)));
 }
+/*
 void huffman_tree_swap(huffman_tree *a, huffman_tree *b)
 {
     huffman_tree aux;
@@ -46,7 +47,7 @@ void huffman_tree_swap(huffman_tree *a, huffman_tree *b)
     *a = *b;
     *b = aux;
 }
-
+*/
 void enqueue_huffman_heap(heap *heap, huffman_tree *node)
 {
     if(heap->size >= MAX_HEAP_SIZE)
@@ -147,3 +148,14 @@ void print_unsigned_char_huffman_heap(heap *heap)
     }
     printf("\n");
 }
+/*
+void print_unsigned_char_in_order(huffman_tree *ht)
+{
+    if (ht != NULL)
+    {
+        print_unsigned_char_in_order(ht->left);
+        printf("%c ",*((unsigned char*)ht->item));
+        print_unsigned_char_in_order(ht->right);
+    }
+}
+*/

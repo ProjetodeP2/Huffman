@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "linked_list.h"
+#include "huffman_tree.h"
+
 
 //Dado uma string com todos os elementos do arquivo e seu tamanho, retorna um array com a frequência dos mesmos.
 int* count_frequency(unsigned char *file_data, int size);
@@ -14,5 +17,12 @@ int* count_frequency(unsigned char *file_data, int size);
   Utilizamos uma min_heap como uma fila de prioridade para a menor frequência.
  */
 huffman_tree* build_huffman_tree(int *frequency);
+
+
+void maping_leaves(huffman_tree *root, node **map, node* path);
+
+
+
+
 
 #endif //HUFFMAN_ENCODE_H
