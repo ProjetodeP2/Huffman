@@ -1,15 +1,5 @@
 #include "../lib/huffman_heap.h"
 
-huffman_tree* create_huffman_tree_node(void *item, int frequency, huffman_tree *left, huffman_tree *right)
-{
-    huffman_tree *node = (huffman_tree*)malloc(sizeof(huffman_tree));
-    node->item = item;
-    node->frequency = frequency;
-    node->left = left;
-    node->right = right;
-    return node;
-}
-
 heap* create_heap()
 {
     int i;
@@ -38,13 +28,6 @@ unsigned char unsigned_char_item_of_huffman_heap(heap *heap, int index)
 {
     huffman_tree *aux = (huffman_tree*)heap->data[index];
     return *((unsigned char*)((aux->item)));
-}
-void huffman_tree_swap(huffman_tree *a, huffman_tree *b)
-{
-    huffman_tree aux;
-    aux = *a;
-    *a = *b;
-    *b = aux;
 }
 
 void enqueue_huffman_heap(heap *heap, huffman_tree *node)

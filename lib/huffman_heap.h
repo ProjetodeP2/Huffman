@@ -4,23 +4,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "huffman_tree.h"
 #define MAX_HEAP_SIZE 256
-
-typedef struct huffman_tree
-{
-    void *item;
-    int frequency;
-    struct huffman_tree *left;
-    struct huffman_tree *right;
-}huffman_tree;
-typedef struct heap
+/*
+	Define o tipo abstrato 'heap', cujo a struct contém
+	o tamanho atual da heap, e um array de poteiros para void com seu tamanho máximo.
+*/
+ typedef struct heap
 {
     int size;
     void* data[MAX_HEAP_SIZE+1];
 }heap;
-
-// Retorna um nó para uma árvore de Huffman, a partir, de seu item, frequenia e filhos à esquerda e direita.
-huffman_tree* create_huffman_tree_node(void *item, int frequency, huffman_tree *left, huffman_tree *right);
 
 //Retorna uma heap com o tamanho atual zero e cada elemento do array de ponteiros, data, apontando para NULL.
 heap* create_heap();
@@ -36,9 +30,6 @@ int get_right_index(heap *heap, int index);
 
 //Retorna o elemento, no índice 'i', de uma heap que contém itens do tipo unsigned char.
 unsigned char unsigned_char_item_of_huffman_heap(heap *heap, int index);
-
-//Recebe dois ponteiros do tipo huffman_tree e troca o conteúdo entre eles.
-void huffman_tree_swap(huffman_tree *a, huffman_tree *b);
 
 //Adiciona um elemento do tipo huffman_tree à nossa heap  respeitando as características de uma min-heap.
 void enqueue_huffman_heap(heap *heap, huffman_tree *node);
@@ -57,6 +48,8 @@ huffman_tree* dequeue_of_huffman_heap(heap *heap);
 
 //Imprime a heap que armanazena elementos com items do tipo unsigned char.
 void print_unsigned_char_huffman_heap(heap *heap);
+
+
 
 
 #endif //HUFFMAN_HUFFMAN_HEAP_H
