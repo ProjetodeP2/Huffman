@@ -33,14 +33,43 @@ void encoding(FILE *file)
             map[i] = NULL;
         }
         maping_leaves(root, map, NULL);
+
+
         print_int_list(map['A']);
         print_int_list(map['B']);
         print_int_list(map['C']);
         print_int_list(map['D']);
         print_int_list(map['E']);
         print_int_list(map['F']);
-    }
 
+        node *list_pre_order = create_list();
+        int size_of_tree = 0;
+        list_pre_order = save_pre_order(root, list_pre_order, &size_of_tree);
+
+        print_unsigned_char_list(list_pre_order);
+        printf("Tamanho da Arvore: %d\n", size_of_tree);
+
+        int total_amount_of_bits, trash_size;
+        total_amount_of_bits = get_bits_size(map, frequency);
+        printf("Qnt total de bits: %d\n", total_amount_of_bits);
+        trash_size = get_trash_size(total_amount_of_bits);
+        printf("Tamanho do lixo: %d", trash_size);
+        printf("\n\n");
+
+        unsigned char *header = make_header(list_pre_order, trash_size, size_of_tree);
+        int j;
+        for (i = 15, j = 0; i >= 0 ; --i)
+        {
+            if(i==7)j=1;
+            printf("%d ", is_bit_i_set(header[j], i%8));
+        }
+        printf("\n");
+        printf("HEADER: \n");
+        for (i = 0; i <= 2 + size_of_tree; ++i)
+        {
+            printf("%c ", header[i]);
+        }
+    }
 }
 
 int main() {

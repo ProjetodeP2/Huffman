@@ -1,6 +1,5 @@
 #include "../lib/linked_list.h"
 
-
 node* create_list()
 {
     return NULL;
@@ -32,6 +31,30 @@ node* add_int_end(node* head, int item)
     head->next = new_node;
     return aux;
 }
+
+node* add_unsigned_char_end(node* head, unsigned char item)
+{
+    unsigned char *item_of_node = (unsigned char*)malloc(sizeof(unsigned char));
+    *item_of_node = item;
+    if(head == NULL)
+    {
+        node* new_node = (node*) malloc(sizeof(node));
+        new_node->item = item_of_node;
+        new_node->next = head;
+        return new_node;
+    }
+
+    node* aux = head;
+
+    while(head->next != NULL) head = head->next;
+
+    node* new_node = (node*) malloc(sizeof(node));
+    new_node->item = item_of_node;
+    new_node->next = head->next;
+    head->next = new_node;
+    return aux;
+}
+
 node* remove_last_node(node* head)
 {
     node *previous = NULL;
@@ -81,4 +104,24 @@ void print_int_list(node* head)
         aux=aux->next;
     }
     printf("\n");
+}
+
+void print_unsigned_char_list(node *head)
+{
+    node* aux = head;
+    unsigned char *item = NULL;
+    if (aux == NULL)printf("Lista vazia\n");
+    while(aux != NULL)
+    {
+        item = (unsigned char *)aux->item;
+        printf("%c ", *item);
+        aux=aux->next;
+    }
+    printf("\n");
+}
+
+int list_count(node* head, int size)
+{
+    if ( head == NULL) return size;
+    list_count( head->next, ++size);
 }

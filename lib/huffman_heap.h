@@ -10,7 +10,7 @@
 	Define o tipo abstrato 'heap', cujo a struct contém
 	o tamanho atual da heap, e um array de poteiros para void com seu tamanho máximo.
 */
- typedef struct heap
+typedef struct heap
 {
     int size;
     void* data[MAX_HEAP_SIZE+1];
@@ -48,8 +48,6 @@ huffman_tree* dequeue_of_huffman_heap(heap *heap);
 
 //Imprime a heap que armanazena elementos com items do tipo unsigned char.
 void print_unsigned_char_huffman_heap(heap *heap);
-
-
 
 
 #endif //HUFFMAN_HUFFMAN_HEAP_H
