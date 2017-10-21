@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 #include "linked_list.h"
 #include "huffman_heap.h"
 #include "huffman_tree.h"
@@ -47,6 +48,13 @@ int* decimal_to_binary(int decimal, int max);
 */
 unsigned char* make_header(node* list_pre_order, int trash_size, int size_of_tree);
 
+/*
+    Dado um array com os os bytes do arquivo a ser compactado, o tamanho desse arquivo, o array de ponteiros para node com os caminhos para as folhas da árvore e um inteiro com o tamanho total
+    de Bytes que o arquivo compactado terá. Retorna um array de unsigned char com o futuro conteúdo do arquivo comprimido.
+ */
+unsigned char* make_file_content(unsigned char *file_data, int file_size, node **map, int total_amount_of_bytes);
+
+void create_final_file(unsigned char *header, unsigned char *compacted_file_content, int tree_size, int total_amount_of_bytes);
 
 
 #endif //HUFFMAN_ENCODE_H

@@ -150,9 +150,7 @@ unsigned char* make_header(node* list_pre_order, int trash_size, int size_of_tre
         {
             if(trash_size_binary[k])
             {
-                printf("Bit setado em %d ", i%8);
                 header[j] = set_bit(header[j], i%8);
-                printf("%d\n", is_bit_i_set(header[j], i%8));
             }
 
         }
@@ -174,3 +172,44 @@ unsigned char* make_header(node* list_pre_order, int trash_size, int size_of_tre
     return header;
 
 }
+
+
+unsigned char* make_file_content(unsigned char *file_data, int file_size, node **map, int total_amount_of_bytes)
+{
+    int i;
+    int current_bit = 7, current_byte = 0;
+    node *path = NULL;
+    unsigned char *compacted_file_content = (unsigned char*)malloc(total_amount_of_bytes * sizeof(unsigned char));
+    memset(compacted_file_content, 0, total_amount_of_bytes* sizeof(unsigned char));
+    for (i = 0; i < file_size; ++i)
+    {
+        path = map[file_data[i]];
+        while(path != NULL)
+        {
+            if(*(int *)path->item)
+            {
+                compacted_file_content[current_byte] = set_bit(compacted_file_content[current_byte], current_bit);
+            }
+            path = path->next;
+            --current_bit;
+            if(current_bit < 0)
+            {
+                ++current_byte;
+                current_bit = 7;
+            }
+        }
+    }
+    return compacted_file_content;
+}
+
+void create_final_file(unsigned char *header, unsigned char *compacted_file_content, int tree_size, int total_amount_of_bytes)
+{
+    FILE *final_file;
+    final_file =  fopen("compacted.huff", "wb");
+
+    fwrite(header , sizeof(unsigned char), tree_size+2, final_file);
+    fwrite(compacted_file_content , sizeof(unsigned char), total_amount_of_bytes, final_file);
+    fclose(final_file);
+
+}
+

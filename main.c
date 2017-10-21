@@ -6,8 +6,10 @@ void encoding(FILE *file)
     int file_size, amount_of_bytes;
     fseek(file,0, SEEK_END);
     file_size = ftell(file);
+    printf("%d", file_size);
     //this string will receive the file data
-    unsigned char file_data[file_size];
+ 	//ALERTA!!!! AQUI Q ESTAVA O BUG
+    unsigned char *file_data = (unsigned char*)malloc(file_size * sizeof(unsigned char));
     rewind(file);
     //transfer the file data to the string
     amount_of_bytes = (int) fread(file_data, 1, (size_t)file_size, file);
@@ -28,28 +30,20 @@ void encoding(FILE *file)
         printf("\n");
         node *map[256];
         int i;
-        for (i = 0; i < 256; ++i)
-        {
+       for (i = 0; i < 256; ++i)
+       {
             map[i] = NULL;
-        }
+       }
         maping_leaves(root, map, NULL);
 
-
-        print_int_list(map['A']);
-        print_int_list(map['B']);
-        print_int_list(map['C']);
-        print_int_list(map['D']);
-        print_int_list(map['E']);
-        print_int_list(map['F']);
-
-        node *list_pre_order = create_list();
+       node *list_pre_order = create_list();
         int size_of_tree = 0;
         list_pre_order = save_pre_order(root, list_pre_order, &size_of_tree);
 
         print_unsigned_char_list(list_pre_order);
         printf("Tamanho da Arvore: %d\n", size_of_tree);
 
-        int total_amount_of_bits, trash_size;
+       int total_amount_of_bits, trash_size;
         total_amount_of_bits = get_bits_size(map, frequency);
         printf("Qnt total de bits: %d\n", total_amount_of_bits);
         trash_size = get_trash_size(total_amount_of_bits);
@@ -69,6 +63,13 @@ void encoding(FILE *file)
         {
             printf("%c ", header[i]);
         }
+       printf("\n");
+        //NEW
+
+        int total_amount_of_bytes = (int) ceil(total_amount_of_bits/8.0);
+        unsigned char *compacted_file_content = make_file_content(file_data, file_size, map, total_amount_of_bytes);
+        create_final_file(header, compacted_file_content, size_of_tree, total_amount_of_bytes);
+
     }
 }
 

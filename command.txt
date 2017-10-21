@@ -1,1 +1,1 @@
-gcc main.c src/encode.c src/huffman_heap.c src/huffman_tree.c src/linked_list.c src/bitmask.c lib/encode.h lib/huffman_heap.h lib/huffman_tree.h lib/linked_list.h lib/bitmask.h
+gcc main.c src/encode.c src/huffman_heap.c src/huffman_tree.c src/linked_list.c src/bitmask.c lib/encode.h lib/huffman_heap.h lib/huffman_tree.h lib/linked_list.h lib/bitmask.h -lm
