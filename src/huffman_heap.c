@@ -39,7 +39,6 @@ void enqueue_huffman_heap(heap *heap, huffman_tree *node)
     }
     else
     {
-
         heap->data[++heap->size] = node;
         int current_index = heap->size;
         int parent_index = get_parent_index(heap, heap->size);
@@ -53,7 +52,6 @@ void enqueue_huffman_heap(heap *heap, huffman_tree *node)
             current_node = (huffman_tree*)heap->data[current_index];
             parent_node = (huffman_tree*)heap->data[parent_index];
         }
-
     }
 
 }

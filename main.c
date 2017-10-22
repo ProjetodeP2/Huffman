@@ -23,100 +23,66 @@ void encoding(FILE *file)
     else
     {
         //we need to count the frequency of which byte of the string
+        int i, j;
         int *frequency = count_frequency(file_data, file_size);
-        //now we neesd to build our huffman tree
-        huffman_tree *root = build_huffman_tree(frequency);
-        //apartir daqui é tudo temporario
-        //precisamos agora mapear a arvore
-        printf("Pre ordem da arvore: ");
-        print_unsigned_char_pre_order(root);
-        printf("\n");
-        node *map[256];
-        int i;
-       for (i = 0; i < 256; ++i)
-       {
-            map[i] = NULL;
-       }
-       maping_leaves(root, map, NULL);
 
+        printf("Building Huffman tree................\n");
+        huffman_tree *root = build_huffman_tree(frequency);
+        printf("Huffman Tree successfully built!\n\n");
+        
+        node *map[256];
+        
+        for (i = 0; i < 256; ++i)
+        {
+             map[i] = NULL;
+        }
+       
+        printf("Maping leaves................\n");
+        maping_leaves(root, map, NULL);
+        printf("Maping successfully done!\n\n");
+
+
+        printf("Making Header..................\n");
         node *list_pre_order = create_list();
         int size_of_tree = 0;
         list_pre_order = save_pre_order(root, list_pre_order, &size_of_tree);
-
-        //print_unsigned_char_list(list_pre_order);
-        //printf("Tamanho da Arvore: %d\n", size_of_tree);
-
-       int total_amount_of_bits, trash_size;
+        int total_amount_of_bits, trash_size;
         total_amount_of_bits = get_bits_size(map, frequency);
-        
-        //printf("Amount of bytes: %d\n", total_amount_of_bits);
-
-
-        //printf("Qnt total de bits: %d\n", total_amount_of_bits);
         trash_size = get_trash_size(total_amount_of_bits);
-        //printf("Tamanho do lixo: %d\n", trash_size);
-       
-
         unsigned char *header = make_header(list_pre_order, trash_size, size_of_tree);
-        int j;
-        /*for (i = 15, j = 0; i >= 0 ; --i)
-        {
-            if(i==7)j=1;
-            printf("%d ", is_bit_i_set(header[j], i%8));
-        }
-        printf("\n");
-      /*
-        printf("HEADER: \n");
-        for (i = 0; i <= 2 + size_of_tree; ++i)
-        {
-            printf("%c ", header[i]);
-        }
-      */
-       printf("\n");
-      
-        //NEW
+        printf("Header successfully made!\n\n");
+        
 
         int total_amount_of_bytes = (int) ceil(total_amount_of_bits/8.0);
         unsigned char *compacted_file_content = make_file_content(file_data, file_size, map, total_amount_of_bytes);
+        printf("Creating compressed file..................\n");
         create_final_file(header, compacted_file_content, size_of_tree, total_amount_of_bytes);
-
+        printf("File successfully compressed!\n\n");
     }
 }
 
 void decoding(FILE* file)
 {
-    int trash_size, tree_size;
-    int i;
+    int i, trash_size, tree_size;
+    int counter = 0;
+    
+    printf("Retrieving Header........................\n");
     trash_size = trash(file);
     tree_size  = get_tree_size(file);
 
-    
     unsigned char * pre_order = (unsigned char*)malloc(tree_size * sizeof(unsigned char));
     pre_order = pre_order_tree(file, tree_size);
+    printf("Header successfully retrieved!\n\n");
 
-    /*
-    printf("Trash_size: %d\n", trash_size);
-    printf("Tree Size: %d\n",  tree_size);
-
-    printf("Pre order tree: ");
-    
-    for(i = 0; i < tree_size; i++){
-        printf("%c", pre_order[i]);
-    }
-    printf("\n");
-    */
-    int counter = 0;
     huffman_tree* tree = NULL;
+    printf("Retrieving Huffman tree........................\n");
     tree = get_huffman_tree(tree, pre_order, tree_size, &counter);
-    printf("Arvore remontada: ");
-    print_unsigned_char_pre_order(tree);
-
+    printf("Huffman tree successfully retrieved!\n\n");
+    
+    printf("Creating decompressed file........................\n");
+    mount_uncompressed_file(file, tree, trash_size,tree_size);
+    printf("File successfully decompressed!\n\n");
 }
-
-
-
-
-
 
 int main() {
 
@@ -125,7 +91,7 @@ int main() {
     printf("Digite a url do arquivo: \n");
     scanf("%s", url);
     FILE *file;
-
+    printf("\n");
     file =  fopen(url, "rb");
      if (file == NULL)
      {
@@ -135,7 +101,7 @@ int main() {
      {
         if(strstr(url,".huff") == NULL)
         {
-           encoding(file);
+            encoding(file);
         }
         else{
             decoding(file);
