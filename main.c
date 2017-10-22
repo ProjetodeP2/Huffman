@@ -45,10 +45,14 @@ void encoding(FILE *file)
 
        int total_amount_of_bits, trash_size;
         total_amount_of_bits = get_bits_size(map, frequency);
+        
+        printf("Amount of bytes: %d\n", total_amount_of_bits);
+
+
         printf("Qnt total de bits: %d\n", total_amount_of_bits);
         trash_size = get_trash_size(total_amount_of_bits);
-        printf("Tamanho do lixo: %d", trash_size);
-        printf("\n\n");
+        printf("Tamanho do lixo: %d\n", trash_size);
+       
 
         unsigned char *header = make_header(list_pre_order, trash_size, size_of_tree);
         int j;
