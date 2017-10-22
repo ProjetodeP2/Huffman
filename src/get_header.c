@@ -19,7 +19,7 @@ int trash(FILE* file)
 	return trash_size;
 }
 
-int tree_size(FILE* file)
+int get_tree_size(FILE* file)
 {
     int size = 0, i;
     int position_bit = 12;

@@ -17,12 +17,12 @@ void huffman_tree_swap(huffman_tree *a, huffman_tree *b)
     *a = *b;
     *b = aux;
 }
-void print_unsigned_char_in_order(huffman_tree *ht)
+void print_unsigned_char_pre_order(huffman_tree *ht)
 {
     if (ht != NULL)
     {
-        print_unsigned_char_in_order(ht->left);
         printf("%c ",*((unsigned char*)ht->item));
-        print_unsigned_char_in_order(ht->right);
+        print_unsigned_char_pre_order(ht->left);
+        print_unsigned_char_pre_order(ht->right);
     }
 }

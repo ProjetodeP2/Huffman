@@ -22,6 +22,6 @@ huffman_tree* create_huffman_tree_node(void *item, int frequency, huffman_tree *
 //Troca o conteúdo entre dois nós da árvore de huffman
 void huffman_tree_swap(huffman_tree *a, huffman_tree *b);
 //Imprime a arvore de huffman, que armazena unsigned chars, em in-order
-void print_unsigned_char_in_order(huffman_tree *ht);
+void print_unsigned_char_pre_order(huffman_tree *ht);
 
 #endif //HUFFMAN_HUFFMAN_TREE_H
