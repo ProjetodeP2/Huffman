@@ -33,6 +33,7 @@ huffman_tree* get_huffman_tree(huffman_tree* tree, unsigned char* pre_order, int
     return tree;
 }
 
+
 void mount_uncompressed_file(FILE* compressed_file, huffman_tree*tree, int trash, int size_tree)
 {
 	huffman_tree* aux_tree= tree;	
