@@ -26,7 +26,7 @@ huffman_tree* build_huffman_tree(int *frequency)
             item_of_node = NULL;
         }
     }
-    while(huffman_heap->size > 1)
+    while(get_heap_size(huffman_heap) > 1)
     {
         left = dequeue_of_huffman_heap(huffman_heap);
         right = dequeue_of_huffman_heap(huffman_heap);
@@ -34,7 +34,7 @@ huffman_tree* build_huffman_tree(int *frequency)
         item_of_node = (unsigned char*)malloc(sizeof(unsigned char));
         *item_of_node = '*';
 
-        parent = create_huffman_tree_node(item_of_node, (left->frequency) + (right->frequency),left, right);
+        parent = create_huffman_tree_node(item_of_node, get_huffamn_node_frequency(left) + get_huffamn_node_frequency(right),left, right);
         enqueue_huffman_heap(huffman_heap, parent);
 
     }
@@ -44,18 +44,18 @@ huffman_tree* build_huffman_tree(int *frequency)
 }
 void maping_leaves(huffman_tree *root, node **map, node* path)
 {
-    if(root->left == NULL && root->right == NULL)
+    if(get_left_huffamn_node(root) == NULL && get_right_huffamn_node(root) == NULL)
     {
-        unsigned char index = *((unsigned char*)root->item);//por causo do ponteiro para void
+        unsigned char index = *((unsigned char*)get_huffman_node_item(root));//por causo do ponteiro para void
         map[index] = copy_int_list(path);
         return;
     }
 
     path = add_int_end(path, 0);
-    maping_leaves(root->left, map, path);
+    maping_leaves(get_left_huffamn_node(root), map, path);
     path = remove_last_node(path);
     path = add_int_end(path, 1);
-    maping_leaves(root->right, map, path);
+    maping_leaves(get_right_huffamn_node(root), map, path);
     path = remove_last_node(path);
 }
 
@@ -64,22 +64,22 @@ node* save_pre_order(huffman_tree *root, node *list_pre_order, int* size_of_tree
     if (root != NULL)
     {
         unsigned char item;
-        item = *((unsigned char*)(root->item));
+        item = *((unsigned char*)get_huffman_node_item(root));
 
-        if (root->left == NULL && root->right == NULL && (item == '\\' || item == '*'))
+        if (get_left_huffamn_node(root) == NULL && get_right_huffamn_node(root) == NULL && (item == '\\' || item == '*'))
         {
             (*size_of_tree) += 2;
             list_pre_order = add_unsigned_char_end(list_pre_order, '\\');
             list_pre_order = add_unsigned_char_end(list_pre_order, item);
-            list_pre_order = save_pre_order(root->left, list_pre_order, size_of_tree);
-            list_pre_order = save_pre_order(root->right, list_pre_order, size_of_tree);
+            list_pre_order = save_pre_order(get_left_huffamn_node(root), list_pre_order, size_of_tree);
+            list_pre_order = save_pre_order(get_right_huffamn_node(root), list_pre_order, size_of_tree);
         }
         else
         {
             (*size_of_tree)++;
             list_pre_order = add_unsigned_char_end(list_pre_order, item);
-            list_pre_order = save_pre_order(root->left, list_pre_order, size_of_tree);
-            list_pre_order = save_pre_order(root->right, list_pre_order, size_of_tree);
+            list_pre_order = save_pre_order(get_left_huffamn_node(root), list_pre_order, size_of_tree);
+            list_pre_order = save_pre_order(get_right_huffamn_node(root), list_pre_order, size_of_tree);
         }
     }
 
@@ -165,8 +165,8 @@ unsigned char* make_header(node* list_pre_order, int trash_size, int size_of_tre
     node *aux = list_pre_order;
     for ( i = 0; i < size_of_tree; ++i)
     {
-        header[i+2] = *((unsigned char*)aux->item);
-        aux = aux->next;
+        header[i+2] = *((unsigned char*)get_linked_list_item(aux));
+        aux = get_linked_list_next_node(aux);
     }
 
     return header;
@@ -186,11 +186,11 @@ unsigned char* make_file_content(unsigned char *file_data, int file_size, node *
         path = map[file_data[i]];
         while(path != NULL)
         {
-            if(*(int *)path->item)
+            if(*(int *)get_linked_list_item(path))
             {
                 compacted_file_content[current_byte] = set_bit(compacted_file_content[current_byte], current_bit);
             }
-            path = path->next;
+            path = get_linked_list_next_node(path);
             --current_bit;
             if(current_bit < 0)
             {
@@ -212,4 +212,3 @@ void create_final_file(unsigned char *header, unsigned char *compacted_file_cont
     fclose(final_file);
 
 }
-

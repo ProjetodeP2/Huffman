@@ -12,7 +12,7 @@
 #include "get_header.h"
 
 /*
-    Recupera a árvore de huffman a partir da pré ordem  
+    Recupera a árvore de huffman a partir da pré ordem
 */
 huffman_tree* get_huffman_tree(huffman_tree* tree, unsigned char* pre_order, int tree_size, int* counter);
 
