@@ -10,11 +10,7 @@
 	Define o tipo abstrato 'heap', cujo a struct contém
 	o tamanho atual da heap, e um array de poteiros para void com seu tamanho máximo.
 */
-typedef struct heap
-{
-    int size;
-    void* data[MAX_HEAP_SIZE+1];
-}heap;
+typedef struct heap heap;
 
 /*
 	Retorna uma heap com o tamanho atual zero e cada elemento do array de ponteiros, data, apontando para NULL.
@@ -22,24 +18,24 @@ typedef struct heap
 heap* create_heap();
 
 /*
+	Retorna o tamanho  atual da heap.
+*/
+int get_heap_size(heap *heap);
+
+/*
 	Retorna o indice para o pai do elemeto de indice 'i' da heap.
 */
-int get_parent_index(heap *heap, int index);
+int get_parent_index(int index);
 
 /*
 	Retorna o indice para o elemento à esquerda do elemeto de indice 'i' da heap.
 */
-int get_left_index(heap *heap, int index);
+int get_left_index(int index);
 
 /*
 	Retorna o indice para o elemento à direita do elemeto de indice 'i' da heap.
 */
-int get_right_index(heap *heap, int index);
-
-/*
-	Retorna o elemento, no índice 'i', de uma heap que contém itens do tipo unsigned char.
-*/
-unsigned char unsigned_char_item_of_huffman_heap(heap *heap, int index);
+int get_right_index(int index);
 
 /*
 	Adiciona um elemento do tipo huffman_tree à nossa heap  respeitando as características de uma min-heap.
@@ -62,11 +58,5 @@ int is_empty(heap *heap);
 	Retorna o primeiro elemento(no caso de menor frequência) de uma min_heap que armazena elementos do tipo huffman_tree.
 */
 huffman_tree* dequeue_of_huffman_heap(heap *heap);
-
-/*
-	Imprime a heap que armanazena elementos com items do tipo unsigned char.
-*/
-void print_unsigned_char_huffman_heap(heap *heap);
-
 
 #endif //HUFFMAN_HUFFMAN_HEAP_H

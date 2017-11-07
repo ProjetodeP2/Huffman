@@ -1,9 +1,26 @@
 #include "../lib/linked_list.h"
 
+struct node
+{
+    void *item;
+    struct node *next;
+};
+
+void* get_linked_list_item(node *head)
+{
+    return  head->item;
+}
+
+node* get_linked_list_next_node(node *head)
+{
+    return head->next;
+}
+
 node* create_list()
 {
     return NULL;
 }
+
 int is_list_empty(node* head)
 {
     return(head == NULL);
@@ -79,6 +96,7 @@ node* remove_last_node(node* head)
     free(current);
     return head;
 }
+
 node* copy_int_list(node *head)
 {
     node *aux = head;
@@ -92,6 +110,7 @@ node* copy_int_list(node *head)
     }
     return copy;
 }
+
 void print_int_list(node* head)
 {
     node* aux = head;

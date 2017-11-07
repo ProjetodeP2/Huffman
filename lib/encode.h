@@ -58,7 +58,7 @@ unsigned char* make_header(node* list_pre_order, int trash_size, int size_of_tre
 unsigned char* make_file_content(unsigned char *file_data, int file_size, node **map, int total_amount_of_bytes);
 
 /*
-    Recebe os arrays do header e do arquivo compactado, o tamanho da árvore e a quantidade total de bytes do arquivo e cria o arquivo final (compacted.huff) 
+    Recebe os arrays do header e do arquivo compactado, o tamanho da árvore e a quantidade total de bytes do arquivo e cria o arquivo final (compacted.huff)
 */
 void create_final_file(unsigned char *header, unsigned char *compacted_file_content, int tree_size, int total_amount_of_bytes);
 
