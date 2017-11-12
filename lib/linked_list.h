@@ -31,17 +31,17 @@ int is_list_empty(node* head);
 /*
     Adiciona um node, com um inteiro como item, no final da lista. Retorna um ponteiro pro começo da lista.
 */
-node* add_int_end(node* head, int item);
+node* add_int_list_end(node* head, int item);
 
 /*
     Adiciona um node, com um unsigned char como item, no final da lista. Retorna um ponteiro pro começo da lista.
 */
-node* add_unsigned_char_end(node* head, unsigned char item);
+node* add_unsigned_char_list_end(node* head, unsigned char item);
 
 /*
     Remove o último node. Retorna um ponteiro pro começo da lista.
 */
-node* remove_last_node(node* head);
+node* remove_last_list_node(node* head);
 
 /*
     Cria uma nova lista igual a lista passada.

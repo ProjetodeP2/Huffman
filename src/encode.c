@@ -34,7 +34,7 @@ huffman_tree* build_huffman_tree(int *frequency)
         item_of_node = (unsigned char*)malloc(sizeof(unsigned char));
         *item_of_node = '*';
 
-        parent = create_huffman_tree_node(item_of_node, get_huffamn_node_frequency(left) + get_huffamn_node_frequency(right),left, right);
+        parent = create_huffman_tree_node(item_of_node, get_huffman_node_frequency(left) + get_huffman_node_frequency(right),left, right);
         enqueue_huffman_heap(huffman_heap, parent);
 
     }
@@ -44,19 +44,19 @@ huffman_tree* build_huffman_tree(int *frequency)
 }
 void maping_leaves(huffman_tree *root, node **map, node* path)
 {
-    if(get_left_huffamn_node(root) == NULL && get_right_huffamn_node(root) == NULL)
+    if(get_left_huffman_node(root) == NULL && get_right_huffman_node(root) == NULL)
     {
-        unsigned char index = *((unsigned char*)get_huffman_node_item(root));//por causo do ponteiro para void
+        unsigned char index = *((unsigned char*)get_huffman_node_item(root));
         map[index] = copy_int_list(path);
         return;
     }
 
-    path = add_int_end(path, 0);
-    maping_leaves(get_left_huffamn_node(root), map, path);
-    path = remove_last_node(path);
-    path = add_int_end(path, 1);
-    maping_leaves(get_right_huffamn_node(root), map, path);
-    path = remove_last_node(path);
+    path = add_int_list_end(path, 0);
+    maping_leaves(get_left_huffman_node(root), map, path);
+    path = remove_last_list_node(path);
+    path = add_int_list_end(path, 1);
+    maping_leaves(get_right_huffman_node(root), map, path);
+    path = remove_last_list_node(path);
 }
 
 node* save_pre_order(huffman_tree *root, node *list_pre_order, int* size_of_tree)
@@ -66,20 +66,20 @@ node* save_pre_order(huffman_tree *root, node *list_pre_order, int* size_of_tree
         unsigned char item;
         item = *((unsigned char*)get_huffman_node_item(root));
 
-        if (get_left_huffamn_node(root) == NULL && get_right_huffamn_node(root) == NULL && (item == '\\' || item == '*'))
+        if (get_left_huffman_node(root) == NULL && get_right_huffman_node(root) == NULL && (item == '\\' || item == '*'))
         {
             (*size_of_tree) += 2;
-            list_pre_order = add_unsigned_char_end(list_pre_order, '\\');
-            list_pre_order = add_unsigned_char_end(list_pre_order, item);
-            list_pre_order = save_pre_order(get_left_huffamn_node(root), list_pre_order, size_of_tree);
-            list_pre_order = save_pre_order(get_right_huffamn_node(root), list_pre_order, size_of_tree);
+            list_pre_order = add_unsigned_char_list_end(list_pre_order, '\\');
+            list_pre_order = add_unsigned_char_list_end(list_pre_order, item);
+            list_pre_order = save_pre_order(get_left_huffman_node(root), list_pre_order, size_of_tree);
+            list_pre_order = save_pre_order(get_right_huffman_node(root), list_pre_order, size_of_tree);
         }
         else
         {
             (*size_of_tree)++;
-            list_pre_order = add_unsigned_char_end(list_pre_order, item);
-            list_pre_order = save_pre_order(get_left_huffamn_node(root), list_pre_order, size_of_tree);
-            list_pre_order = save_pre_order(get_right_huffamn_node(root), list_pre_order, size_of_tree);
+            list_pre_order = add_unsigned_char_list_end(list_pre_order, item);
+            list_pre_order = save_pre_order(get_left_huffman_node(root), list_pre_order, size_of_tree);
+            list_pre_order = save_pre_order(get_right_huffman_node(root), list_pre_order, size_of_tree);
         }
     }
 
@@ -140,25 +140,25 @@ unsigned char* make_header(node* list_pre_order, int trash_size, int size_of_tre
     int *tree_size_binary = decimal_to_binary(size_of_tree, 13);
 
 
-    int i, j, k;
+    int i, bit_counter, byte_index, array_index;
 
-    for (i = 15, j = 0, k = 0; i >= 0 ; --i, ++k)
+    for (bit_counter = 15, byte_index = 0, array_index = 0; bit_counter >= 0 ; --bit_counter, ++array_index)
     {
-        if(i == 7)j = 1;
-        if(i == 12)k = 0;
-        if(i >= 13)
+        if(bit_counter == 7)byte_index = 1;
+        if(bit_counter == 12)array_index = 0;
+        if(bit_counter >= 13)
         {
-            if(trash_size_binary[k])
+            if(trash_size_binary[array_index])
             {
-                header[j] = set_bit(header[j], i%8);
+                header[byte_index] = set_bit(header[byte_index], bit_counter%8);
             }
 
         }
         else
         {
-            if(tree_size_binary[k])
+            if(tree_size_binary[array_index])
             {
-                header[j] = set_bit(header[j], i%8);
+                header[byte_index] = set_bit(header[byte_index], bit_counter%8);
             }
         }
     }
@@ -212,3 +212,4 @@ void create_final_file(unsigned char *header, unsigned char *compacted_file_cont
     fclose(final_file);
 
 }
+

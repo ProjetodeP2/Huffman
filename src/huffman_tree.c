@@ -8,30 +8,30 @@ struct huffman_tree
     struct huffman_tree *right;
 };
 
-huffman_tree* get_left_huffamn_node(huffman_tree *root)
+huffman_tree* get_left_huffman_node(huffman_tree *root)
 {
     return root->left;
 }
 
 
-huffman_tree* get_right_huffamn_node(huffman_tree *root)
+huffman_tree* get_right_huffman_node(huffman_tree *root)
 {
     return root->right;
 }
 
-void set_left_huffamn_node(huffman_tree *root, huffman_tree *left)
+void set_left_huffman_node(huffman_tree *root, huffman_tree *left)
 {
     root->left = left;
 }
 
-void set_right_huffamn_node(huffman_tree *root, huffman_tree *right)
+void set_right_huffman_node(huffman_tree *root, huffman_tree *right)
 {
     root->right = right;
 }
 
 
 
-int get_huffamn_node_frequency(huffman_tree *root)
+int get_huffman_node_frequency(huffman_tree *root)
 {
     return root->frequency;
 }

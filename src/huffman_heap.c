@@ -1,5 +1,4 @@
 #include "../lib/huffman_heap.h"
-
 struct heap
 {
     int size;
@@ -12,7 +11,7 @@ heap* create_heap()
     heap *new_heap = (heap*)malloc(sizeof(heap));
     for (i = 0; i <= MAX_HEAP_SIZE; ++i)
     {
-        new_heap->data[MAX_HEAP_SIZE] = NULL;
+        new_heap->data[i] = NULL;
     }
     new_heap->size = 0;
     return new_heap;
@@ -51,7 +50,7 @@ void enqueue_huffman_heap(heap *heap, huffman_tree *node)
         int parent_index = get_parent_index(heap->size);
         huffman_tree *current_node = (huffman_tree*)heap->data[current_index];
         huffman_tree *parent_node = (huffman_tree*)heap->data[parent_index];
-        while(parent_index >= 1 && get_huffamn_node_frequency(current_node) < get_huffamn_node_frequency(parent_node))
+        while(parent_index >= 1 && get_huffman_node_frequency(current_node) < get_huffman_node_frequency(parent_node))
         {
             huffman_tree_swap(current_node, parent_node);
             current_index = parent_index;
@@ -68,7 +67,7 @@ void min_heapify_huffman_heap(heap *heap, int index)
     int left_index = get_left_index(index);
     int right_index = get_right_index(index);
 
-    if (left_index <= heap->size && get_huffamn_node_frequency((huffman_tree*)heap->data[left_index])< get_huffamn_node_frequency((huffman_tree*)heap->data[index]))
+    if (left_index <= heap->size && get_huffman_node_frequency((huffman_tree*)heap->data[left_index])< get_huffman_node_frequency((huffman_tree*)heap->data[index]))
     {
         lowest = left_index;
     }
@@ -77,7 +76,7 @@ void min_heapify_huffman_heap(heap *heap, int index)
         lowest = index;
     }
 
-    if (right_index <= heap->size && get_huffamn_node_frequency((huffman_tree*)heap->data[right_index]) < get_huffamn_node_frequency((huffman_tree*)heap->data[lowest]))
+    if (right_index <= heap->size && get_huffman_node_frequency((huffman_tree*)heap->data[right_index]) < get_huffman_node_frequency((huffman_tree*)heap->data[lowest]))
     {
         lowest = right_index;
     }

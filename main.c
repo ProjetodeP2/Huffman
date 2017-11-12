@@ -11,7 +11,7 @@ void encoding(FILE *file)
     unsigned char *file_data = (unsigned char*)malloc(file_size * sizeof(unsigned char));
     rewind(file);
 
-    amount_of_bytes = (int) fread(file_data, 1, (size_t)file_size, file);
+    amount_of_bytes = (int) fread(file_data, 1, (size_t) file_size, file);
     if(amount_of_bytes != file_size)
     {
         printf("Failed to transfer the file data to the string");

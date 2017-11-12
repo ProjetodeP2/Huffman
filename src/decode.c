@@ -10,9 +10,9 @@ huffman_tree* get_huffman_tree(huffman_tree* tree, unsigned char* pre_order, int
         *aux = '*';
         tree = create_huffman_tree_node(aux,0,NULL, NULL);
         (*counter)++;
-        set_left_huffamn_node(tree, get_huffman_tree(get_left_huffamn_node(tree), pre_order, tree_size, counter));
+        set_left_huffman_node(tree, get_huffman_tree(get_left_huffman_node(tree), pre_order, tree_size, counter));
         (*counter)++;
-        set_right_huffamn_node(tree, get_huffman_tree(get_right_huffamn_node(tree), pre_order, tree_size, counter));
+        set_right_huffman_node(tree, get_huffman_tree(get_right_huffman_node(tree), pre_order, tree_size, counter));
     }
     else
     {
@@ -45,7 +45,7 @@ void mount_uncompressed_file(FILE* compressed_file, huffman_tree*tree, int trash
         printf("ERROR\n");
         return;
     }
-    if (get_left_huffamn_node(aux_tree) == NULL && get_right_huffamn_node(aux_tree) == NULL)
+    if (get_left_huffman_node(aux_tree) == NULL && get_right_huffman_node(aux_tree) == NULL)
     {
         fprintf(uncompressed_file, "%c", *((unsigned char *)get_huffman_node_item(aux_tree)));
     }
@@ -63,11 +63,11 @@ void mount_uncompressed_file(FILE* compressed_file, huffman_tree*tree, int trash
         for (j = 7; j >=0 ; --j)
         {
             bit_counter++;
-            if (is_bit_i_set(byte,j)) aux_tree = get_right_huffamn_node(aux_tree);
+            if (is_bit_i_set(byte,j)) aux_tree = get_right_huffman_node(aux_tree);
 
-            else aux_tree = get_left_huffamn_node(aux_tree);
+            else aux_tree = get_left_huffman_node(aux_tree);
 
-            if (get_left_huffamn_node(aux_tree) == NULL && get_right_huffamn_node(aux_tree) == NULL)
+            if (get_left_huffman_node(aux_tree) == NULL && get_right_huffman_node(aux_tree) == NULL)
             {
                 fprintf(uncompressed_file,"%c", *((unsigned char *)get_huffman_node_item(aux_tree)));
                 aux_tree=tree;
