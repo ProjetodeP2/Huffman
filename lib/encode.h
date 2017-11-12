@@ -42,9 +42,9 @@ int get_bits_size(node **map, int *frequency);
 int get_trash_size(int total_bits);
 
 /*
-    Dado um inteiro com valor desejado e outro inteiro com o tamanho do array desejado, retorna o valor 'decimal' como binário em um array de inteiros de tamanho 'max'.
+    Dado um inteiro com valor desejado e outro inteiro com o tamanho do array desejado, retorna o valor 'decimal' como binário em um array de inteiros de tamanho 'array_size'.
 */
-int* decimal_to_binary(int decimal, int max);
+int* decimal_to_binary(int decimal, int array_size);
 
 /*
     Dado uma lista encadeada com a pré-ordem da árvore de huffman, o tamanho do lixo e o tamanho da árvore, retorna uma string com o cabeçalho do arquivo a ser comprimido.

@@ -111,24 +111,23 @@ int get_trash_size(int total_bits)
     return (8 - (total_bits % 8) ) % 8;
 }
 
-int* decimal_to_binary(int decimal, int max)
+int* decimal_to_binary(int decimal, int array_size)
 {
     int count = 0;
-    int temporary[max];
-    memset(temporary, 0, max * sizeof(int));
+    int temporary[array_size];
+    memset(temporary, 0, array_size * sizeof(int));
     while(decimal)
     {
         temporary[count++] = (decimal % 2);
         decimal = decimal/2;
     }
-    int *final = (int*)malloc(max * sizeof(int));
-    memset(final, 0, max * sizeof(int));
+    int *final = (int*)malloc(array_size * sizeof(int));
+    memset(final, 0, array_size * sizeof(int));
     int i, j;
-    for (i = 0, j = max - 1; i < max; ++i)
+    for (i = 0, j = array_size - 1; i < array_size; ++i)
     {
         final[i] = temporary[j - i];
     }
-
     return final;
 }
 
