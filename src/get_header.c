@@ -23,19 +23,19 @@ int get_tree_size(FILE* file)
 {
     int size = 0, i;
     int position_bit = 12;
-    unsigned char trash_byte1, trash_byte2;
+    unsigned char tree_byte1, tree_byte2;
 
-    fscanf(file, "%c%c", &trash_byte1, &trash_byte2);
+    fscanf(file, "%c%c", &tree_byte1, &tree_byte2);
 
     for (i = 4; i >= 0 ; --i)
     {
-        if ((trash_byte1 & (1 << i))) size += pow(2, position_bit);
+        if ((tree_byte1 & (1 << i))) size += pow(2, position_bit);
         --position_bit;
     }
 
     for (i = 7; i >= 0 ; --i)
     {
-        if ((trash_byte2 & (1 << i))) size += pow(2, position_bit);
+        if ((tree_byte2 & (1 << i))) size += pow(2, position_bit);
         --position_bit;
     }
 
