@@ -25,7 +25,7 @@ huffman_tree* build_huffman_tree(int *frequency)
             enqueue_huffman_heap(huffman_heap,node);
         }
     }
-    if (get_heap_size(huffman_heap))
+    if (get_heap_size(huffman_heap) == 1)
     {
         unsigned char aux = (unsigned char)(*item_of_node)+1;
         item_of_node = (unsigned char*)malloc(sizeof(unsigned char));
