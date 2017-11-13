@@ -35,31 +35,28 @@ huffman_tree* get_huffman_tree(huffman_tree* tree, unsigned char* pre_order, int
 
 void mount_uncompressed_file(FILE* compressed_file, huffman_tree*tree, int trash, int size_tree)
 {
-    huffman_tree* aux_tree= tree;
-    FILE *uncompressed_file=fopen("uncompressed","wb");
+    huffman_tree* aux_tree = tree;
+    FILE *uncompressed_file = fopen("uncompressed","wb");
 
-    int bit_counter=1, j, size_file;
+    int bit_counter = 1, j, file_size_bits, tree_size_bits;
     unsigned char byte;
 
-    if (tree==NULL || compressed_file==NULL)
+    if (tree == NULL || compressed_file == NULL)
     {
         printf("ERROR\n");
         return;
     }
-    if (get_left_huffman_node(aux_tree) == NULL && get_right_huffman_node(aux_tree) == NULL)
-    {
-        fprintf(uncompressed_file, "%c", *((unsigned char *)get_huffman_node_item(aux_tree)));
-    }
+
     fseek(compressed_file,0,SEEK_END);
-    size_file = ftell(compressed_file) * 8;
+    file_size_bits = (ftell(compressed_file) * 8);
     rewind(compressed_file);
-    fseek(compressed_file,2+size_tree,SEEK_SET);
-    size_tree = size_tree*8;
-    size_file = ((size_file-trash)-size_tree) - 16;
+    fseek(compressed_file,2 + size_tree,SEEK_SET);
+    tree_size_bits = (size_tree * 8); 
+    file_size_bits = (((file_size_bits - trash) - tree_size_bits) - 16);
 
     fscanf(compressed_file,"%c",&byte);
 
-    while(bit_counter <= size_file)
+    while(bit_counter <= file_size_bits)
     {
         for (j = 7; j >=0 ; --j)
         {
@@ -71,13 +68,15 @@ void mount_uncompressed_file(FILE* compressed_file, huffman_tree*tree, int trash
             if (get_left_huffman_node(aux_tree) == NULL && get_right_huffman_node(aux_tree) == NULL)
             {
                 fprintf(uncompressed_file,"%c", *((unsigned char *)get_huffman_node_item(aux_tree)));
-                aux_tree=tree;
+                aux_tree = tree;
             }
-            if (bit_counter>size_file)
+            if (bit_counter > file_size_bits)
             {
                 break;
             }
         }
         fscanf(compressed_file,"%c",&byte);
     }
+
+    fclose(uncompressed_file);
 }

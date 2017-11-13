@@ -23,8 +23,16 @@ huffman_tree* build_huffman_tree(int *frequency)
             *item_of_node = (unsigned char)i;
             node = create_huffman_tree_node(item_of_node, frequency[i], NULL, NULL);
             enqueue_huffman_heap(huffman_heap,node);
-            item_of_node = NULL;
         }
+    }
+    if (get_heap_size(huffman_heap))
+    {
+        unsigned char aux = (unsigned char)(*item_of_node)+1;
+        item_of_node = (unsigned char*)malloc(sizeof(unsigned char));
+        *item_of_node = aux;
+        node = create_huffman_tree_node(item_of_node, 0, NULL, NULL);
+        enqueue_huffman_heap(huffman_heap,node);
+        item_of_node = NULL;
     }
     while(get_heap_size(huffman_heap) > 1)
     {
